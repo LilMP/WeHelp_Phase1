@@ -1,0 +1,70 @@
+
+
+* {
+    font-size: 20px;
+    margin: 0;
+}
+
+/* .navbar_title, .navbar_item */
+.navbar, .middle, .main  {
+    border: 1px red solid;
+}
+
+.middle {
+    background-color: lightblue;
+    font-size: 2em;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    height: 20px;
+    justify-content: center;
+    margin: 10px;
+}
+
+
+/* navbar title置左 */
+.navbar_title {
+    float: left;
+    margin: 0 10px;
+}
+/* navbar item置左 */
+.navbar_item {
+    float: right;
+    margin: 0 10px;
+}
+
+
+@media (min-device-width : 361px) and (max-device-width : 600px) {
+    /* .box {
+        border: 5px orange solid;
+    } */
+    
+}
+
+@media (min-device-width : 601px) and (max-device-width : 1200px) {
+    /* .box {
+        border: 5px purple solid;
+    } */
+    
+}
+
+@media (min-device-width : 1201px) and (max-device-width : 1920px) {
+    /* .box {
+        border: 5px blue solid;
+    } */
+
+    .main {
+        width: 1200px;
+        margin: 20px auto;
+        background-color: lightgreen;
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+
+
