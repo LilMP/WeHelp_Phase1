@@ -31,10 +31,13 @@
 }
 /* navbar item置右 */
 .navbar_right {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-end; */
     /* margin-right: 20px; */
+
+    position: fixed;
+    right: 20px;
 }
 
 
@@ -125,11 +128,23 @@
     margin: 10px;
     opacity: 0.5;
 }
-.hamburger {
+
+#hamburger {
+    /* position: fixed;
+    right: 20px;
+    top: 20px;
     max-height: 20px;
     margin-right: 10px;
+    z-index: 999; */
+    max-height: 20px;
+    /* margin-right: 10px; */
 }
 
+
+
+.panel {
+    display: flex;
+}
 
 
 
@@ -145,8 +160,12 @@
     margin: 0 10px; 
 }
 
-.close_btn{
+.topright_btn{
     display: none;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 999;
 }
 
 .small_box, .big_box {
@@ -195,12 +214,24 @@
         grid-template-columns: 1fr;
         /* grid-template-rows: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px; */
     }
-    .close_btn{
+    .topright_btn{
         display: inherit;
+
     }
     .navbar_item{
         display: none;
     }
+
+    .panel_expand {
+        /* display: flex; */
+        border: 1px solid red;
+        position: fixed;
+        display: block;
+        height: 100vh;
+        width: 50vw;
+        right: 0;
+    }
+
 }
 /* 平板 */
 @media (min-device-width : 601px) and (max-device-width : 1200px) {
@@ -256,7 +287,7 @@
 /* 電腦 */
 @media (min-device-width : 1201px) and (max-device-width : 1920px) {
 
-
+    
     
 }
 
