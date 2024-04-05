@@ -14,6 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 20px;
 }
 
 .navbar {
@@ -24,7 +25,7 @@
     position: sticky;
     top: 0;
     /* width: 100%; */
-
+    z-index: 500;
     overflow: hidden;
     background-color: white;
 
@@ -89,9 +90,11 @@
     
     /* object-fit: scale-down; */
     /* flex-shrink: 0; */
-    max-width: 100%;
-    min-height: 100%;
-    /* width: 50px; */
+    max-width: 80px;
+    min-height: 50px;
+    
+
+
 }
 
 .bb .mountain {
@@ -144,6 +147,7 @@
 
 .panel {
     display: flex;
+    gap: 20px;
 }
 
 
@@ -152,12 +156,12 @@
 .navbar_title {
     float: left;
     /* margin: 0 10px; */
-    height: 20px;
+    /* height: 20px; */
     font-weight: bold;
 }
 
 .navbar_item {
-    margin: 0 10px; 
+    /* margin: 0 10px;  */
 }
 
 .topright_btn{
@@ -220,16 +224,21 @@
     }
     .navbar_item{
         display: none;
+        justify-content: center;
+        margin: 20px;
     }
 
     .panel_expand {
         /* display: flex; */
-        border: 1px solid red;
+        /* border: 1px solid red; */
         position: fixed;
         display: block;
         height: 100vh;
         width: 50vw;
         right: 0;
+        top:0;
+        background-color: white;
+        box-shadow: 0 0 15px gray;
     }
 
 }
