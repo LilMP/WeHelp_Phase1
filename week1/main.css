@@ -8,13 +8,14 @@
 
 .middle {
     background-color: #dcebf5;
-    font-size: 2em;
-    font-weight: bold;
     height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center; /* 換行文字置中 */
 }
 
 .navbar {
