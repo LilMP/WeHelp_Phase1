@@ -88,7 +88,9 @@ consultants=[
 
 # 建立一個初始時間表(list), 有24個element(24小時)每個element都有三個顧問的名字，表示每個顧問都可以預約
 # time_table = [ consultants for i in range(24) ]
-time_table = [ ["John","Bob","Jenny"] for i in range(24) ]
+# 修正: consultants資料會變動, 所以不能寫死
+time_table = [ [ i['name'] for i in consultants ] for i in range(24) ]
+# print(time_table)
 
 
 

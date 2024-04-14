@@ -101,7 +101,26 @@ findAndPrint(messages, "Xindian City Hall"); // print Vivian
 
 // task2
 
-let time_table = Array.from({length: 24}, (_, i) => ["John","Bob","Jenny"]);
+const consultants=[
+    {"name":"John", "rate":4.5, "price":1000},
+    {"name":"Bob", "rate":3, "price":1200},
+    {"name":"Jenny", "rate":3.8, "price":800}
+];
+
+// 建立一個初始時間表(list), 有24個element(24小時)每個element都有三個顧問的名字，表示每個顧問都可以預約
+// let time_table = Array.from({length: 24}, (_, i) => ['John', 'Bob', 'Jenny']);
+// 修正: consultants資料會變動, 所以不能寫死
+let time_table = [];
+
+for (let index = 0; index < 24; index++) {
+    let consultant = [];
+    for (let i in consultants) {
+        consultant.push(consultants[i].name);
+    }
+    time_table.push(consultant);
+}
+// console.log(consultant_list);
+// console.log(time_table);
 
 // console.log(time_table);
 // console.log(time_table[15]);
@@ -164,11 +183,7 @@ function book(consultants, hour, duration, criteria){
     // console.log(time_table);
 
 }
-const consultants=[
-    {"name":"John", "rate":4.5, "price":1000},
-    {"name":"Bob", "rate":3, "price":1200},
-    {"name":"Jenny", "rate":3.8, "price":800}
-];
+
 
 
 console.log("=== task2 ===");
