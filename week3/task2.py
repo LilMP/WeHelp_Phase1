@@ -109,7 +109,7 @@ for title,likeCount,dateTime in zip(titles_list, likeCounts_list, dateTimes_list
 ### csv
 import csv
 header = ["title","likeCount","dateTime"]
-with open("task2.csv", "w", encoding="cp950", newline="") as f:
+with open("article.csv", "w", encoding="cp950", newline="") as f:
     writer = csv.writer(f)
     writer.writerow(header) 
     writer.writerows(result)
