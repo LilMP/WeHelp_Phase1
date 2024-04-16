@@ -99,6 +99,10 @@ findAndPrint(messages, "Qizhang"); // print Leslie
 findAndPrint(messages, "Ximen"); // print Bob
 findAndPrint(messages, "Xindian City Hall"); // print Vivian
 
+// 補充js印出keys/values的寫法
+// console.log(Object.keys(messages));
+// console.log(Object.values(messages));
+
 // task2
 
 const consultants=[
@@ -110,6 +114,7 @@ const consultants=[
 // 建立一個初始時間表(list), 有24個element(24小時)每個element都有三個顧問的名字，表示每個顧問都可以預約
 // let time_table = Array.from({length: 24}, (_, i) => ['John', 'Bob', 'Jenny']);
 // 修正: consultants資料會變動, 所以不能寫死
+
 let time_table = [];
 
 for (let index = 0; index < 24; index++) {
@@ -119,8 +124,25 @@ for (let index = 0; index < 24; index++) {
     }
     time_table.push(consultant);
 }
+
 // console.log(consultant_list);
+console.log(time_table);
+
+
+
+// let time_table = [];
+// let consultant = [];
+// for (let i in consultants) {
+//     // console.log(consultants[i].name);
+//     consultant.push(consultants[i].name);
+// }
+// console.log(consultant);
+
+// for (let index = 0; index < 24; index++) {
+//     time_table.push(consultant);
+// }
 // console.log(time_table);
+
 
 // console.log(time_table);
 // console.log(time_table[15]);
@@ -345,3 +367,93 @@ console.log("=== task5 ===");
 find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2); // print 5
 find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4); // print -1
 find([4, 6, 5, 8], [0, 1, 1, 1], 4); // print 2
+
+
+
+
+
+console.log("########## testing area ########");
+
+
+// let time_table2 = [];
+// let consultant2 = [];
+// for (let i in consultants) {
+//     // console.log(consultants[i].name);
+//     consultant2.push(consultants[i].name);
+// }
+// console.log(consultant2);
+
+// for (let index = 0; index < 24; index++) {
+//     time_table2.push(consultant2);
+// }
+// console.log(time_table2);
+
+
+console.log(1 == '1');
+console.log(1 === '1');
+
+
+values_array = []
+for (const key in messages) {
+    values_array.push(messages[key]);
+}
+console.log(values_array);
+// let values = messages.map(e => messages[key]);
+// console.log(values);
+
+for (const key in messages) {
+    console.log(key+","+messages[key]);
+}
+
+
+
+
+
+
+const messagesPeople = Object.keys(messages);
+console.log(messagesPeople);
+
+// 找訊息: O(n)
+
+
+if( 1>0 && "2>1"){
+    console.log("hello");
+}
+if( 1>0 && 2>1){
+    console.log("world");
+}
+
+// 弱型別的自動轉型
+if( undefined ){
+    console.log("heyhey");
+}
+
+if( false && 1 ){
+    console.log("heyheyhey1");
+}
+
+if( true && 0 ){
+    console.log("heyheyhey2");
+}
+
+if( !0 ){
+    console.log("heyheyhey3");
+}
+
+if( 0 ){
+    console.log("heyheyhey4");
+}
+
+// 只要不是0、""、NaN、null、undefined、false, 都會是true
+// boolean 用 && 比對其他型態的東西
+// 如果前面是true 會回傳後面那個其他型態的東西
+// 如果前面是false 會回傳false
+
+function test(arg){
+    if(!arg){
+        return;
+    }
+}
+
+test();
+// 沒放東西就會結束了 用來確認arg有沒有傳進來

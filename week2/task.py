@@ -1,5 +1,7 @@
 # task1
 
+### 更完整的code註解在這: https://ideone.com/SCpPmd
+
 # 原始訊息的dict
 messages={
     "Leslie":"I'm at home near Xiaobitan station.",
@@ -267,3 +269,106 @@ print("=== task5 ===")
 find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2) # print 5
 find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4) # print -1
 find([4, 6, 5, 8], [0, 1, 1, 1], 4) # print 2
+
+
+
+
+
+
+print("############ play ground #########")
+messages={
+    "Leslie":"I'm at home near Xiaobitan station.",
+    "Bob":"I'm at Ximen MRT station.",
+    "Mary":"I have a drink near Jingmei MRT station.",
+    "Copper":"I just saw a concert at Taipei Arena.",
+    "Vivian":"I'm at Xindian station waiting for you."
+}
+print(type(messages))
+values = [ messages[key] for key in messages ]
+print(values)
+
+for e in messages:
+    # print("key: "+e+", value: "+messages[e])
+    print(e, messages[e])
+
+
+obj = {"x":3, "y":4, "z":5}
+
+for e in obj:
+    # print("key: "+e+", value: "+messages[e])
+    print(e, obj[e])
+
+for k,v in obj.items():
+    print(v, k)
+
+
+print(obj.items())
+# list 包著 key, value的tuple
+# for k in obj:
+#     print(k.items())
+
+
+a = 100000000000
+b = 100000000000
+
+print(id(a))
+# 140042294421360
+print(id(b))
+# 140042294420272
+
+print(a == b)
+# True
+print(a is b)
+# False
+
+
+
+l1 = [1, 2, 3]
+l2 = [1, 2, 3]
+print(id(l1))
+print(id(l2))
+print(l1 == l2)
+# True
+
+print(l1 is l2)
+# False
+
+
+l1 = [1, 2, 3]
+l2 = [1, 2, 3]
+l3 = l1
+l4 = l1[:]
+print(id(l1))
+print(id(l2))
+print(id(l3))
+print(id(l4))
+print(l1 == l2) # True
+print(l1 is l2) # False
+print(l1 is l3) # True
+print(l1 is l4) # False
+
+
+print(messages.keys())
+print(messages.values())
+
+
+
+def get_function():
+    pass
+get_function()
+
+obj={"x":3, "y":4, "z":5}
+for k, v in obj.items():
+    print(k, v)
+
+values = [ messages[key] for key in messages ]
+
+
+values2 = [ v for v in messages.values() ]
+print("values2222")
+print(values2)
+
+values2 = [ a for a,b in messages.items() ]
+
+print(values)
+print(values2)
