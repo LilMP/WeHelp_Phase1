@@ -39,6 +39,29 @@ function ExpendPanelToggle(params) {
     }
 }
 
+function CreateImg(imgUrl,imgTitle,imgClass){
+    
+    // img
+    let newImg = document.createElement("img");
+    newImg.classList.add(imgClass);
+    newImg.src = imgUrl;
+    newImg.alt = imgTitle;
+    // console.log(newImg);
+    return newImg;
+}
+
+function CreateP(title){
+    
+    // text
+    let newP = document.createElement("p");
+    newP.classList.add("text");
+    let newTitle = document.createTextNode(title);  
+    newP.appendChild(newTitle); 
+    // console.log(newP);
+    return newP;
+}
+
+
 function loadMore(){
     // document.querySelector('mark:last-child')
     
@@ -62,24 +85,9 @@ function loadMore(){
             newBigbox.classList.add("bb_wide2");
         }
         
-        // create star element
-        let newStar = document.createElement("img");
-        newStar.classList.add("star");
-        newStar.src = "./img/star.png";
-        newStar.alt = "star";
-
-        // 處理圖片
-        let newImg = document.createElement("img");
-        newImg.classList.add("spot");
-        newImg.src = imgUrls[i];
-        newImg.alt = titles[i];
-
-        // 處理文字
-        let newP = document.createElement("p");
-        newP.classList.add("text");
-        newP.title = titles[i];
-        let newtitle = document.createTextNode(titles[i]);  
-        newP.appendChild(newtitle); 
+        let newStar = CreateImg(imgUrl="./img/star.png", imgTitle="star", imgClass="star");
+        let newImg = CreateImg(imgUrl=imgUrls[i], imgTitle=titles[i], imgClass="spot");
+        let newP = CreateP(title=titles[i]);
 
         // add the newly created element and its content into the DOM
         newBigbox.appendChild(newStar);
@@ -139,16 +147,8 @@ fetch(dataUrl)
         // console.log(smallboxes.length);
         for (let i =0; i < smallboxes.length; i++) {
 
-            // 處理圖片
-            let newImg = document.createElement("img");
-            newImg.classList.add("spot");
-            newImg.src = imgUrls[i];
-            newImg.alt = titles[i];
-
-            let newP = document.createElement("p");
-            newP.classList.add("text");
-            let newtitle = document.createTextNode(titles[i]);  
-            newP.appendChild(newtitle); 
+            let newImg = CreateImg(imgUrl=imgUrls[i], imgTitle=titles[i], imgClass="spot");
+            let newP = CreateP(title=titles[i]);
 
             // add the newly created element and its content into the DOM
             smallboxes[i].appendChild(newImg);
@@ -167,23 +167,9 @@ fetch(dataUrl)
         // console.log(bigboxes.length);
         for (let i =0; i < bigboxes.length; i++) {
             
-            // create star element
-            let newStar = document.createElement("img");
-            newStar.classList.add("star");
-            newStar.src = "./img/star.png";
-            newStar.alt = "star";
-
-            // 處理圖片
-            let newImg = document.createElement("img");
-            newImg.classList.add("spot");
-            newImg.src = imgUrls[i];
-            newImg.alt = titles[i];
-
-            let newP = document.createElement("p");
-            newP.classList.add("text");
-            newP.title = titles[i];
-            let newtitle = document.createTextNode(titles[i]);  
-            newP.appendChild(newtitle); 
+            let newStar = CreateImg(imgUrl="./img/star.png", imgTitle="star", imgClass="star");
+            let newImg = CreateImg(imgUrl=imgUrls[i], imgTitle=titles[i], imgClass="spot");
+            let newP = CreateP(title=titles[i]);
 
             // add the newly created element and its content into the DOM
             bigboxes[i].appendChild(newStar);
