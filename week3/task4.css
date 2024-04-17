@@ -1,0 +1,278 @@
+
+
+* {
+    /* border: 1px solid orange; */
+    font-size: 20px;
+    margin: 0;
+}
+
+.middle {
+    background-color: #dcebf5;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center; /* 換行文字置中 */
+}
+
+.navbar {
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    overflow: hidden;
+    background-color: white;
+
+}
+/* navbar item置右 */
+.navbar_right {
+    position: fixed;
+    right: 20px;
+}
+
+
+.main {
+    /* 先讓包在最外層的父元素變成 Grid Container */
+    display: grid;
+    /* gap: 20px; */
+    width: 1200px;
+    margin: 10px auto;
+    justify-content: center;
+
+    /* grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50px 200px 200px; */   
+}
+
+.sbwrapper {
+    display: grid;
+    width: 1200px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.bbwrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    /* grid-template-rows: 200px 200px; */
+}
+
+.sb, .bb {
+    margin: 10px;
+    overflow: hidden;
+    background-color: #dcebf5;
+    /* #f9e1d5 */
+    /* border: 1px red solid; */
+}
+.sb {
+    height: 50px;
+    display: inline-flex;
+}
+.bb {
+    height: 200px;
+    position: relative;
+}
+
+.sb .spot {
+    /* object-fit: scale-down; */
+    /* flex-shrink: 0; */
+    min-width: 80px;
+    min-height: 50px;
+}
+
+.bb .spot {
+    /* object-fit: scale-down; */
+    /* flex-shrink: 0; */
+    min-width: 100%;
+    max-height: 100%;
+}
+
+.sb .text {
+    padding: 10px ;
+    display: flex;
+    align-items: center;
+}
+
+.bb .text {
+    position: absolute;
+    width: -webkit-fill-available;
+    bottom: 0;
+    background-color: white;
+    color: black;
+    opacity: 0.7;
+    padding: 5px;
+    /* display: flex; */
+    justify-content: center;
+    
+    /* 處理太長的字串: display必須是block 且還要有white-space/overflow*/
+    display: block;
+    text-overflow: ellipsis;
+    /* Both of the following are required for text-overflow */
+    white-space: nowrap;
+    overflow: hidden;
+
+    /* 文字置中 */
+    text-align: center;
+}
+
+.star {
+    max-width: 20px;
+    position: absolute;
+    right: 0;
+    margin: 10px;
+    opacity: 0.5;
+}
+
+#hamburger {
+    /* position: fixed;
+    right: 20px;
+    top: 20px;
+    max-height: 20px;
+    margin-right: 10px;
+    z-index: 999; */
+    max-height: 20px;
+}
+
+
+
+.panel {
+    display: flex;
+    gap: 20px;
+}
+
+
+
+/* navbar title置左 */
+.navbar_title {
+    float: left;
+    /* margin: 0 10px; */
+    /* height: 20px; */
+    font-weight: bold;
+}
+
+
+.topright_btn {
+    display: none;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 999;
+}
+
+
+.spot {
+    object-fit: cover;
+    flex-shrink: 0;
+    /* min-width: 100%; */
+    /* min-height: 100%; */
+}
+
+#moreBtn {
+    width: fit-content;
+    display: flex;
+    margin: 20px auto;
+    cursor: pointer;
+}
+.disabled {
+    pointer-events: none;
+    /* cursor: not-allowed; */
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* 手機 */
+@media (min-device-width : 360px) and (max-device-width : 600px) {
+    .main {
+        width: 90%;
+    }
+    .sbwrapper {
+        display: grid;
+        /* gap: 20px; */
+        width: 90vw;
+        grid-template-columns: 1fr;
+        /* grid-template-rows: 50px 50px 50px; */
+    }
+    .bbwrapper {
+        display: grid;
+        /* gap: 20px; */
+        grid-template-columns: 1fr;
+        /* grid-template-rows: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px; */
+    }
+    .topright_btn{
+        display: inherit;
+
+    }
+    .navbar_item{
+        display: none;
+        justify-content: center;
+        margin: 20px;
+    }
+
+    .panel_expand {
+        /* display: flex; */
+        /* border: 1px solid red; */
+        position: fixed;
+        display: block;
+        height: 100vh;
+        width: 50vw;
+        right: 0;
+        top:0;
+        background-color: white;
+        box-shadow: 0 0 15px gray;
+    }
+
+}
+/* 平板 */
+@media (min-device-width : 601px) and (max-device-width : 1200px) {
+    .main {
+        width: 90vw;
+    }
+    .sbwrapper {
+        display: grid;
+        /* gap: 20px; */
+        width: 90vw;
+        /* border: 1px solid red; */
+        grid-template-columns: 1fr 1fr;
+        /* grid-template-rows: 50px 50px; */
+        /* grid-template-areas: 
+        "sb sb"
+        "wide wide"; */
+    }
+    .sb_wide {
+        /* grid-area: wide; */
+        grid-row: 2 / 2;
+        grid-column: 1 / span 2;
+        margin: 10px;
+    }
+    .bbwrapper {
+        display: grid;
+        /* gap: 20px; */
+        /* border: 1px solid red; */
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        /* grid-template-rows: 200px 200px 200px; */
+        /* grid-template-areas: 
+        "bb bb"
+        "bb bb"
+        "wide1 wide1 wide2"; */
+    }
+    .bb_wide1 {
+        /* grid-row-start: 3;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2; */
+        grid-row: 3 / 3;
+        grid-column: 1 / span 2;
+    }
+    .bb_wide2 {
+        /* grid-row-start: 3;
+        grid-row-end: 3;
+        grid-column-start: 3;
+        grid-column-end: 4; */
+        grid-row: 3 / 3;
+        grid-column: 3 / span 2;
+    }
+
+}
+
