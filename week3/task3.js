@@ -16,13 +16,11 @@ function ExpendPanelToggle(params) {
     // 手機版時 navbar_item display是none; 非手機版時 navbar_item display是block
     if(items[0].style.display == ""){
         for (var i = 0; i < items.length; i++) {
-            // console.log(items[i]);
             items[i].style.display = "flex";
         }
         document.getElementsByClassName("panel").item(0).style.display = "block";
     }else{
         for (var i = 0; i < items.length; i++) {
-            // console.log(items[i]);
             items[i].style.display = "";
         }
         document.getElementsByClassName("panel").item(0).style.display = "flex";
@@ -33,10 +31,8 @@ function ExpendPanelToggle(params) {
 
     // console.log(document.getElementsByClassName("navbar_right").item(0));
     if(document.getElementsByClassName("navbar_right").item(0).classList.contains("panel_expand")){
-        // console.log("yes");
         document.getElementsByClassName("topright_btn").item(0).innerHTML = "<p onclick='ExpendPanelToggle()'>X</p>";
     }else{
-        // console.log("no");
         document.getElementsByClassName("topright_btn").item(0).innerHTML = '<img id="hamburger" onclick="ExpendPanelToggle()" src="./img/hamburger.png" alt="hamburger"></img>';
     }
 }
@@ -51,10 +47,8 @@ fetch(dataUrl).then(function(response){
     // return response.text();
     return response.json();
 }).then(function(data){
-    // console.log(data.data.results);
     let target = data.data.results;
     
-
     // 取得資料後做的事情: 
     for(let i=0;i<target.length;i++){
         // 處理圖片網址
@@ -71,8 +65,8 @@ fetch(dataUrl).then(function(response){
     }
 
     // why 如果寫在外面會是空?
-    console.log(titles);
-    console.log(imgUrls);
+    // console.log(titles);
+    // console.log(imgUrls);
 
     // 處理 render 圖片
 
@@ -87,7 +81,6 @@ fetch(dataUrl).then(function(response){
         newImg.src = imgUrls[i];
         newImg.alt = titles[i];
 
-
         let newP = document.createElement("p");
         newP.classList.add("text");
         let newtitle = document.createTextNode(titles[i]);  
@@ -100,11 +93,9 @@ fetch(dataUrl).then(function(response){
     }
     // 把已render的圖片跟文字從list中清掉
     for(let i=0;i<smallboxes.length;i++){
-        // remove the first item form the list.
         titles.shift();
         imgUrls.shift();
     }
-
 
     let bigboxes = document.querySelectorAll(".bb");
     for (let i =0; i < bigboxes.length; i++) {
@@ -131,12 +122,10 @@ fetch(dataUrl).then(function(response){
         bigboxes[i].appendChild(newStar);
         bigboxes[i].appendChild(newImg);
         bigboxes[i].appendChild(newP);
-        // document.body.insertBefore(newDiv, currentDiv);
 
     }
     // 把已render的圖片跟文字從list中清掉
     for(let i=0;i<bigboxes.length;i++){
-        // remove the first item form the list.
         titles.shift();
         imgUrls.shift();
     }

@@ -33,10 +33,8 @@ function ExpendPanelToggle(params) {
 
     // console.log(document.getElementsByClassName("navbar_right").item(0));
     if(document.getElementsByClassName("navbar_right").item(0).classList.contains("panel_expand")){
-        // console.log("yes");
         document.getElementsByClassName("topright_btn").item(0).innerHTML = "<p onclick='ExpendPanelToggle()'>X</p>";
     }else{
-        // console.log("no");
         document.getElementsByClassName("topright_btn").item(0).innerHTML = '<img id="hamburger" onclick="ExpendPanelToggle()" src="./img/hamburger.png" alt="hamburger"></img>';
     }
 }
@@ -44,15 +42,11 @@ function ExpendPanelToggle(params) {
 function loadMore(){
     // document.querySelector('mark:last-child')
     
-    
     let parent = document.querySelector(".main");
     let loadBtn = document.querySelector("#moreBtn");
     let newBbwrapper = document.createElement("div");
     newBbwrapper.classList.add("bbwrapper");
     
-    
-    // console.log(lastBigbox);
-    // document.body.insertBefore(newDiv, currentDiv);
     let end = 10;
     if(titles.length<10){
         end = titles.length;
@@ -91,7 +85,6 @@ function loadMore(){
         newBigbox.appendChild(newStar);
         newBigbox.appendChild(newImg);
         newBigbox.appendChild(newP);
-        // console.log(newBigbox);
         // lastBbwrapper.insertBefore(newBigbox, lastBigbox.nextSibling);
         newBbwrapper.appendChild(newBigbox);
         
@@ -135,7 +128,7 @@ fetch(dataUrl)
         }
 
         // why 如果寫在外面會是空?
-        console.log(titles);
+        // console.log(titles);
         // console.log(imgUrls);
 
         // 處理 render 圖片
@@ -145,13 +138,12 @@ fetch(dataUrl)
         let smallboxes = document.querySelectorAll(".sb");
         // console.log(smallboxes.length);
         for (let i =0; i < smallboxes.length; i++) {
-            console.log("take: "+titles[i]);
+
             // 處理圖片
             let newImg = document.createElement("img");
             newImg.classList.add("spot");
             newImg.src = imgUrls[i];
             newImg.alt = titles[i];
-
 
             let newP = document.createElement("p");
             newP.classList.add("text");
@@ -161,7 +153,6 @@ fetch(dataUrl)
             // add the newly created element and its content into the DOM
             smallboxes[i].appendChild(newImg);
             smallboxes[i].appendChild(newP);
-            // document.body.insertBefore(newDiv, currentDiv);
         
         }
         for(let i=0;i<smallboxes.length;i++){
@@ -169,8 +160,8 @@ fetch(dataUrl)
             titles.shift();
             imgUrls.shift();
         }
-        console.log(titles.length);
-        console.log(titles);
+        // console.log(titles.length);
+        // console.log(titles);
 
         let bigboxes = document.querySelectorAll(".bb");
         // console.log(bigboxes.length);
@@ -188,20 +179,16 @@ fetch(dataUrl)
             newImg.src = imgUrls[i];
             newImg.alt = titles[i];
 
-
             let newP = document.createElement("p");
             newP.classList.add("text");
             newP.title = titles[i];
             let newtitle = document.createTextNode(titles[i]);  
             newP.appendChild(newtitle); 
-            
 
             // add the newly created element and its content into the DOM
             bigboxes[i].appendChild(newStar);
             bigboxes[i].appendChild(newImg);
             bigboxes[i].appendChild(newP);
-            // document.body.insertBefore(newDiv, currentDiv);
-            
             
         }
         for(let i=0;i<bigboxes.length;i++){
@@ -209,8 +196,8 @@ fetch(dataUrl)
             titles.shift();
             imgUrls.shift();
         }
-        console.log(titles.length);
-        console.log(titles);
+        // console.log(titles.length);
+        // console.log(titles);
     });
 
 
