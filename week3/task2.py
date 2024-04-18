@@ -1,5 +1,8 @@
 
 import urllib.request as req, bs4
+
+############## fetch data ##############
+
 titles_list = []
 likeCounts_list = []
 articalUrls_list = []
@@ -43,15 +46,12 @@ def getData(url):
     nextLink = root.find("a", string="‹ 上頁")
     return "https://www.ptt.cc"+nextLink["href"]
 
-
-
 def getArticleDateTime(url):
 
     if(url==""):
         dateTimes_list.append("") # no date/time
         return
     
-
     request = req.Request(url, headers={
         "User-agent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
         "cookie":"over18=1"
@@ -63,7 +63,7 @@ def getArticleDateTime(url):
 
     # 透過觀察得到時間欄位的css選取規則
     dateTime = root.select(".article-metaline+ .article-metaline .article-meta-value")
-    # print(type(dateTime)) # bs4.element.ResultSet: 实际上返回结果是一个 列表或 ResultSet 对象的字符串，需要对结果进行循环才能得到每个节点的 .foo 属性
+    # print(type(dateTime)) # bs4.element.ResultSet
     # [<span class="article-meta-value">Sun Apr 14 23:13:46 2024</span>]
     
     if(len(dateTime)==0):
@@ -74,12 +74,10 @@ def getArticleDateTime(url):
     # print(dateTime.string)
     # print(root.find(dateTime).span.string)
     dateTimes_list.append(dateTime[0].string)
-    # 也可以用find_all() 再找出最後一個 # 暫不實做
+    # 也可以用find_all(class_="article-meta-value") 再找出最後一個即為時間資訊 # 暫不實做
     # article_metas = root.find_all("span", class_="article-meta-value")
     # for meta in article_metas:
     #   ...
-
-    
 
 
 pageUrl = "https://www.ptt.cc/bbs/Lottery/index.html"
@@ -102,14 +100,15 @@ for url in articalUrls_list:
 result = []
 for title,likeCount,dateTime in zip(titles_list, likeCounts_list, dateTimes_list):
     row = [title, likeCount, dateTime]
+    # row = [title+","+likeCount+","+dateTime]
     # print(row)
     result.append(row)
 # print(result)
 
-### csv
+### output
 import csv
-header = ["title","likeCount","dateTime"]
+# header = ["title","likeCount","dateTime"]
 with open("article.csv", "w", encoding="cp950", newline="") as f:
     writer = csv.writer(f)
-    writer.writerow(header) 
+    # writer.writerow(header) 
     writer.writerows(result)
