@@ -1,0 +1,33 @@
+* {
+    font-family: Microsoft JhengHei;
+    margin: 0;
+    font-size: 20px;
+}
+
+#title p {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: #1e4d9b;
+    padding: 20px;
+}
+#login p, #login a, form div {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+#login p{
+    font-size: 25px;
+    font-weight: bold;
+}
+#login a{
+    margin-top:20px;
+}
+form {
+    margin:15px;
+    display:block;
+}
+label,input {
+    margin:0 5px;
+}
