@@ -30,7 +30,6 @@ database = {
 
 @app.get('/')
 async def home_page(request: Request):
-    request.session.update({"ACCOUNT":None}) # reset the account info everytime when redirecting to /
     return templates.TemplateResponse(name = "home.html", context = {"request": request, "title": "歡迎光臨，請輸入帳號密碼", "status": "登入系統", "bonus":"計算正整數的平方"})
 
 @app.get('/member')
@@ -41,7 +40,7 @@ def get_member(request: Request):
     if request.session.get("SIGNED-IN") is True:
         return templates.TemplateResponse("member.html", {"request": request, "title": "歡迎光臨"+account+"，這是會員頁", "status": "恭喜您，成功登入系統"})
     else:
-        return RedirectResponse('/',status_code=303)   
+        return RedirectResponse('/')   
 
 @app.get('/error')
 def get_error(request: Request, message):
@@ -52,7 +51,7 @@ def get_error(request: Request, message):
 def get_signout(request: Request):
     # set signed-in state to false, then redirect to /
     request.session.update({"SIGNED-IN":False})
-    return RedirectResponse('/',status_code=303)  
+    return RedirectResponse('/')  
 
 @app.post('/signin')
 def verification(request: Request, account: str = Form("account"), password: str = Form("password")):
@@ -61,20 +60,21 @@ def verification(request: Request, account: str = Form("account"), password: str
     if account == database[0].account and password == database[0].password:
         request.session.update({"SIGNED-IN": True})
         request.session.update({"ACCOUNT": account})
+        return RedirectResponse('/member', status_code=303)  
+        # update cookie 的寫法
         # response = RedirectResponse('/member', status_code=303)
         # response.set_cookie(key="account", value=account)
-        # return response
-        return RedirectResponse('/member', status_code=303)   
+        # return response 
     elif account == "test" and password != "test":
         request.session.update({"SIGNED-IN": False})
         return RedirectResponse(
-            url = "/error"+ "?message=密碼輸入錯誤",
+            url = "/error"+ "?message=密碼輸入錯誤", # URL query string
             status_code=303
         )
     else:
         request.session.update({"SIGNED-IN": False})
         return RedirectResponse(
-            url = "/error"+ "?message=帳號不存在",
+            url = "/error"+ "?message=帳號不存在", # URL query string
             status_code=303
         )
 
