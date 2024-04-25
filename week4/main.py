@@ -36,7 +36,7 @@ async def home_page(request: Request):
 @app.get('/member')
 def get_member(request: Request):
     account = request.session.get('ACCOUNT')
-    print(account)
+    # print(account)
     # check session SIGNED-IN
     if request.session.get("SIGNED-IN") is True:
         return templates.TemplateResponse("member.html", {"request": request, "title": "歡迎光臨"+account+"，這是會員頁", "status": "恭喜您，成功登入系統"})
@@ -46,16 +46,7 @@ def get_member(request: Request):
 @app.get('/error')
 def get_error(request: Request, message):
     request.session.update({"SIGNED-IN":False})
-    if message == "no_such_account":
-        account = request.session.get("ACCOUNT")
-        status = "不存在叫 "+account+" 的帳號"
-    else:
-        status = "密碼輸入錯誤"
-    
-    return templates.TemplateResponse("error.html", 
-                                      {"request":request, 
-                                       "title":"失敗頁面", 
-                                       "status":status})
+    return templates.TemplateResponse("error.html", {"request":request, "title":"失敗頁面", "status":message})
 
 @app.get('/signout')
 def get_signout(request: Request):
@@ -77,14 +68,13 @@ def verification(request: Request, account: str = Form("account"), password: str
     elif account == "test" and password != "test":
         request.session.update({"SIGNED-IN": False})
         return RedirectResponse(
-            url = "/error"+ "?message=validation_fail",
+            url = "/error"+ "?message=密碼輸入錯誤",
             status_code=303
         )
     else:
         request.session.update({"SIGNED-IN": False})
-        request.session.update({"ACCOUNT": account})
         return RedirectResponse(
-            url = "/error"+ "?message=no_such_account",
+            url = "/error"+ "?message=帳號不存在",
             status_code=303
         )
 
