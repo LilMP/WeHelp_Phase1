@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week4</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div>
+        <div>失敗頁面</div>
+        <p>帳號或密碼輸入錯誤</p>
+        <form action="/signin" method="post">
+            <label for="account">帳號</label>
+            <input type="text" id="account" placeholder="帳號" name="account">
+            <label for="password">密碼</label>
+            <input type="text" id="password" placeholder="密碼" name="password">
+            <label for="agreement">同意條款</label>
+            <input type="checkbox" id="agreement" placeholder="同意條款" name="agreement">
+            <!-- <input type="button" value="signin"> -->
+            <button type="submit" name="submit" onclick="submitHandler()">登入</button>
+        </form>
+        
+    </div>
+    
+</body>
+<script>
+    function printhello(){
+        alert('hello');
+    }
+    
+
+    function submitHandler(){
+        const agreement = document.getElementById("agreement");
+        if(!agreement.checked){
+            alert("Please check the checkbox first");
+            event.preventDefault();
+        }
+    }
+</script>
+</html>
