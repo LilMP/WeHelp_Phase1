@@ -93,6 +93,6 @@ def verification(request: Request, account: str = Form("account"), password: str
 def cal_square(request:Request, int_input: int):
     # print("print input")
     # print(type(int_input))
-    return templates.TemplateResponse("error.html", { "request":request, "title":"正整數平方計算結果", "status":int_input**2})
+    return templates.TemplateResponse("error.html", { "request":request, "title":"正整數平方計算結果", "status":str(int_input)+"^2="+str(int_input**2)})
 
 
