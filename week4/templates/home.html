@@ -17,12 +17,12 @@
         <form action="/signin" method="post">
             <div>
                 <label for="account">帳號</label>
-                <input type="text" id="account" placeholder="帳號" name="account">
+                <input type="text" id="account" placeholder="" name="account">
             </div>
         
             <div>
                 <label for="password">密碼</label>
-                <input type="text" id="password" placeholder="密碼" name="password">
+                <input type="text" id="password" placeholder="" name="password">
             </div>
         
             <div>
@@ -55,10 +55,24 @@
 <script>
     function submitHandler(){
         const agreement = document.getElementById("agreement");
+        const account = document.getElementById("account").value;
+        const password = document.getElementById("password").value;
         if(!agreement.checked){
-            alert("Please check the checkbox first");
+            alert("請先勾選同意條款");
             event.preventDefault();
+            return;
         }
+        if(!account){
+            alert("帳號不可為空");
+            event.preventDefault();
+            return;
+        }
+        if(!password){
+            alert("密碼不可為空");
+            event.preventDefault();
+            return;
+        }
+
     }
     function cal_square(){
         
