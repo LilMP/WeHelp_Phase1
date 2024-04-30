@@ -9,7 +9,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     ```sql
     CREATE DATABASE `website`;
     ```
-    ![](task2-1.png)
+    ![](screenshots/task2-1.png)
 
 - create a new table named `member` in the `website` database. designed as below.
     
@@ -35,7 +35,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     );
     SHOW TABLES;
     ```
-    ![](task2-2.png)
+    ![](screenshots/task2-2.png)
 
 ## Task3: SQL CRUD
 
@@ -52,18 +52,18 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     INSERT INTO `member` (`name`, `username`, `password`,`follower_count`)
     VALUES ('Kate','katie','pe04','100');
     ```
-    ![](task3-1.png)
+    ![](screenshots/task3-1.png)
 - SELECT all rows from the member table.
     ```sql
     SELECT * FROM `member`;
     ```
-    ![](task3-2.png)
+    ![](screenshots/task3-2.png)
 - SELECT all rows from the member table, in descending order of time.
     ```sql
     SELECT * FROM `member`
     ORDER BY `time` DESC;
     ```
-    ![](task3-3.png)
+    ![](screenshots/task3-3.png)
 - SELECT total 3 rows, second to fourth, from the member table, in descending order of time. **Note: it does not mean SELECT rows where id are 2, 3, or 4.**
     ```sql
     WITH `temp` AS (
@@ -74,25 +74,25 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     SELECT `id`, `username`, `password`, `follower_count`, `time`
     FROM `temp`;
     ```
-    ![](task3-4.png)
+    ![](screenshots/task3-4.png)
 - SELECT rows where username equals to test.
     ```sql
     SELECT * FROM `member`
     WHERE `username` = 'test';
     ```
-    ![](task3-5.png)
+    ![](screenshots/task3-5.png)
 - SELECT rows where name includes the es keyword.
     ```sql
     SELECT * FROM `member`
     WHERE `name` LIKE '%es%';
     ```
-    ![](task3-6.png)
+    ![](screenshots/task3-6.png)
 - SELECT rows where both username and password equal to test.
     ```sql
     SELECT * FROM `member`
     WHERE `username` = 'test' AND `password` = 'test';
     ```
-    ![](task3-7.png)
+    ![](screenshots/task3-7.png)
 -  UPDATE data in name column to test2 where username equals to test.
     ```sql
     UPDATE `member`
@@ -100,7 +100,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     WHERE `username` = 'test';
     SELECT * FROM `member`;
     ```
-    ![](task3-8.png)
+    ![](screenshots/task3-8.png)
 
 ## Task4: SQL Aggregation Functions
 
@@ -109,19 +109,19 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     SELECT COUNT(*) as `row_count`
     FROM `member`;
     ```
-    ![](task4-1.png)
+    ![](screenshots/task4-1.png)
 - SELECT the sum of follower_count of all the rows from the member table.
     ```sql
     SELECT SUM(`follower_count`) as `sum_of_follower_count`
     FROM `member`;
     ```
-    ![](task4-2.png)
+    ![](screenshots/task4-2.png)
 - SELECT the average of follower_count of all the rows from the member table.
     ```sql
     SELECT AVG(`follower_count`) as `avg_of_follower_count`
     FROM `member`;
     ```
-    ![](task4-3.png)
+    ![](screenshots/task4-3.png)
 -  SELECT the average of follower_count of the first 2 rows, in descending order of follower_count, from the member table.
     ```sql
     WITH `temp` AS (
@@ -132,7 +132,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     SELECT AVG(`follower_count`) as `avg_of_first_2_rows` 
     FROM `temp`;
     ```
-    ![](task4-4.png)
+    ![](screenshots/task4-4.png)
 ## Task 5: SQL JOIN 
 
 - Create a new table named message, in the website database. designed as below:
@@ -171,14 +171,14 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     VALUES ('1','test said something again...','78');
     SELECT * FROM `message`;
     ```
-    ![](task5-1.png)
+    ![](screenshots/task5-1.png)
 - SELECT all messages, including sender names. We have to JOIN the member table to get that.
     ```sql
     SELECT `member`.`name` AS `sender_name`, `message`.`content` 
     FROM `member`
     INNER JOIN `message` ON `member`.`id` =  `message`.`member_id`;
     ```
-    ![](task5-2.png)
+    ![](screenshots/task5-2.png)
 - SELECT all messages, including sender names, where sender username equals to test. We have to JOIN the member table to filter and get that.
     ```sql
     SELECT `member`.`name` AS `sender_name`, `message`.`content` 
@@ -186,7 +186,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     INNER JOIN `message` ON `member`.`id` =  `message`.`member_id`
     WHERE `name` = 'test';
     ```
-    ![](task5-3.png)
+    ![](screenshots/task5-3.png)
 - Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages where sender username equals to test.
     ```sql
     WITH `temp` AS (
@@ -198,7 +198,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     SELECT `sender_name`, AVG(`like_count`) AS `avg_like_count`
     FROM `temp`;
     ```
-    ![](task5-4.png)
+    ![](screenshots/task5-4.png)
 - Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages GROUP BY sender username.
     ```sql
     WITH `temp` AS (
@@ -210,7 +210,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     FROM `temp`
     GROUP BY `sender_name`;
     ```
-    ![](task5-5.png)
+    ![](screenshots/task5-5.png)
 
 - Use mysqldump command to export the website database to a file named data.sql.
-  ![](task5-6.png)
+  ![](screenshots/task5-6.png)
