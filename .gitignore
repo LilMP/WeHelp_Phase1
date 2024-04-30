@@ -1,3 +1,4 @@
 *.pdf
 # 忽略__pycache__資料夾
 __pycache__/
+mysql_practice.sql
