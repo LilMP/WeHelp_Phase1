@@ -171,7 +171,9 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     VALUES ('1','test said something again...','78');
     SELECT * FROM `message`;
     ```
+    ![](screenshots/task5-1-2.png)
     ![](screenshots/task5-1.png)
+    
 - SELECT all messages, including sender names. We have to JOIN the member table to get that.
     ```sql
     SELECT `member`.`name` AS `sender_name`, `message`.`content` 
