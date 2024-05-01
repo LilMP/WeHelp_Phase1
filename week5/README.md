@@ -96,7 +96,7 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
 -  UPDATE data in name column to test2 where username equals to test.
     ```sql
     UPDATE `member`
-    SET `username` = 'test2'
+    SET `name` = 'test2'
     WHERE `username` = 'test';
     SELECT * FROM `member`;
     ```
@@ -179,36 +179,36 @@ download_version: `Windows (x86, 64-bit), MSI Installer`
     INNER JOIN `message` ON `member`.`id` =  `message`.`member_id`;
     ```
     ![](screenshots/task5-2.png)
-- SELECT all messages, including sender names, where sender username equals to test. We have to JOIN the member table to filter and get that.
+- SELECT all messages, including sender names, where sender `username` equals to test. We have to JOIN the member table to filter and get that.
     ```sql
     SELECT `member`.`name` AS `sender_name`, `message`.`content` 
     FROM `member`
     INNER JOIN `message` ON `member`.`id` =  `message`.`member_id`
-    WHERE `name` = 'test';
+    WHERE `username` = 'test';
     ```
     ![](screenshots/task5-3.png)
-- Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages where sender username equals to test.
+- Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages where sender `username` equals to test.
     ```sql
     WITH `temp` AS (
-        SELECT `member`.`name` AS `sender_name`, `message`.`like_count` 
+        SELECT `member`.`username` AS `sender_username`, `message`.`like_count` 
         FROM `member`
         INNER JOIN `message` ON `member`.`id` =  `message`.`member_id`
-        WHERE `name` IN ('test')
+        WHERE `username` IN ('test')
     )
-    SELECT `sender_name`, AVG(`like_count`) AS `avg_like_count`
+    SELECT `sender_username`, AVG(`like_count`) AS `avg_like_count`
     FROM `temp`;
     ```
     ![](screenshots/task5-4.png)
-- Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages GROUP BY sender username.
+- Use SELECT, SQL Aggregation Functions with JOIN statement, get the average like count of messages GROUP BY sender `username`.
     ```sql
     WITH `temp` AS (
-        SELECT `member`.`name` AS `sender_name`, `message`.`like_count` 
+        SELECT `member`.`username` AS `sender_username`, `message`.`like_count` 
         FROM `member`
         INNER JOIN `message` ON `member`.`id` =  `message`.`member_id`
     )
-    SELECT `sender_name`, AVG(`like_count`) AS `avg_like_count`
+    SELECT `sender_username`, AVG(`like_count`) AS `avg_like_count`
     FROM `temp`
-    GROUP BY `sender_name`;
+    GROUP BY `sender_username`;
     ```
     ![](screenshots/task5-5.png)
 
