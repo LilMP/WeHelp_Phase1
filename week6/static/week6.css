@@ -1,0 +1,45 @@
+* {
+    font-family: Microsoft JhengHei;
+    margin: 0;
+    font-size: 20px;
+}
+
+#title p {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: #1e4d9b;
+    padding: 20px;
+}
+#login p, #login a, #comment_block p, #message_block p, form div {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+#login p, #comment_block p{
+    font-size: 25px;
+    font-weight: bold;
+}
+#login a{
+    margin: 10px 0 20px 0;
+}
+form {
+    margin:15px;
+    display:block;
+}
+label,input {
+    margin:0 5px;
+}
+.delete_btn {
+    margin-left:10px;
+}
+/* #message_block input,#message_block input:focus{
+    border: none;
+    outline: none;
+    width: auto;
+} */
+/* .name {
+    text-align: right;
+    font-weight: bold;    
+} */

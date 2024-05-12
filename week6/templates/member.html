@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>week6: member system</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/week6.css') }}">
+</head>
+<body>
+    <div id="title">
+        <p>
+            {{ title }}
+        </p>
+    </div>
+    <div id="login">
+        <p>{{ status }}</p>   
+        <a href="/signout">登出系統</a>
+    </div>
+    <hr>
+    <div id="comment_block">
+        <p>快來留言吧</p>   
+        <form action="/createMessage" method="post">
+            <div>
+                <!-- label 的 for 跟 input的 name 要互相對應 才能把值傳到後端 -->
+                <label for="comment">內容</label>
+                <input type="text" id="comment" placeholder="" name="comment">
+            </div>
+            <div>
+                <button type="submit" name="submit_message" onclick="commentHandler()">送出</button>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <div id="message_block">
+        {% for item in messages %}
+        <p><b>{{item.name}}</b>：{{item.message}} <button class="delete_btn" name="deletion" value="{{item.message}}" style="display:{{item.delete}};" onclick='deleteHandler("{{item.name}}","{{item.message}}")'>x</button></p>
+        <!-- <p><b>{{item.name}}</b>：{{item.message}} <button id={{item.row}} class="delete_btn" name="deletion" value={{item.message}} style="display:{{item.delete}};" onclick="deleteHandler({{item.message}},{{item.name}})">x</button></p> -->
+            <!-- <form action="/deleteMessage" method="post">
+                <input class="name" name="name" value= "{{ item.name }}" readonly>：
+                <input class="message" name="message" value= "{{ item.message }}" readonly>
+                <button style='display:{{item.delete}};' type="submit" class="delete_btn" onclick="deleteHandler()">x</button>
+            </form> -->
+        {% endfor %}
+    </div>
+    
+</body>
+<script>
+    function commentHandler(){
+        const comment = document.getElementById("comment").value;
+        
+        if(!comment){
+            alert("留言不可為空");
+            event.preventDefault();
+            return;
+        }
+        console.log(comment);
+    }
+    function deleteHandler(name,msg){
+    // function deleteHandler(){
+        // console.log(name);
+        // console.log(msg);
+
+        if(!confirm("確定要刪除嗎?")){
+            event.preventDefault();
+            return;
+        }
+        else{
+            fetch("/deleteMessage",{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'name':name,'message':msg})
+            })
+            .then(resp => resp.json()) // or, resp.text(), etc
+            .then(data => {
+                console.log(data); // handle response data
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            
+            location.href = "/member";
+
+            
+        }
+    }
+</script>
+</html>
