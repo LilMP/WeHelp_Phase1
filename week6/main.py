@@ -4,7 +4,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
-from pydantic import BaseModel
+# from pydantic import BaseModel
 from fastapi import Body
 import mysql.connector
 
@@ -64,11 +64,6 @@ async def signup(request: Request, new_name: str = Form("new_name"), new_account
             status_code=303
         )   
    
-
-
-
-
-
 @app.get('/member')
 def get_member(request: Request):
     name = request.session.get('NAME')
@@ -88,11 +83,6 @@ def get_member(request: Request):
         sql = "SELECT member.name AS sender_name, message.content, message.time FROM member INNER JOIN message ON member.id =  message.member_id  ORDER BY message.time DESC;"
         mycursor.execute(sql)
         msg = mycursor.fetchall()  
-
-        # for i in msg:
-        #     print(i[0])
-        #     print(i[1])
-        #     print("#####")
         
         messages = []
         row_count = 0
@@ -236,15 +226,6 @@ def delete_message(request: Request, message = Body("message"), name = Body("nam
         print(mycursor.rowcount, "record(s) deleted")
 
     return RedirectResponse('/member', status_code=303)  
-
-
-    
-# bonus
-# @app.get('/square/{int_input}')
-# def cal_square(request:Request, int_input: int):
-#     # print("print input")
-#     # print(type(int_input))
-#     return templates.TemplateResponse("error.html", { "request":request, "title":"正整數平方計算結果", "status":str(int_input)+"^2="+str(int_input**2)})
 
 
 #讓terminal 可以執行 python main.py
