@@ -66,7 +66,7 @@ async def signup(request: Request, new_name: str = Form("new_name"), new_account
    
 @app.get('/member')
 def get_member(request: Request):
-    name = request.session.get('NAME')
+    username = request.session.get('NAME')
 
     # check session SIGNED-IN
     if request.session.get("SIGNED-IN") is True:
@@ -87,7 +87,7 @@ def get_member(request: Request):
         messages = []
         row_count = 0
         for item in msg:
-            if(name!=item[0]):
+            if(username!=item[0]):
                 messages.append({"name":item[0],"message":item[1],"delete":"none"})
             else:
                 messages.append({"name":item[0],"message":item[1],"delete":"inline-block"})
@@ -96,7 +96,7 @@ def get_member(request: Request):
 
 
         
-        return templates.TemplateResponse("member.html", {"request": request, "title": "歡迎光臨，這是會員頁", "status": name+"，歡迎登入系統", "messages": messages})
+        return templates.TemplateResponse("member.html", {"request": request, "title": "歡迎光臨，這是會員頁", "username": username, "messages": messages})
     else:
         return RedirectResponse('/')   
 
@@ -195,10 +195,9 @@ async def create_message(request: Request, comment: str = Form("comment")):
 #     message: str
 
 @app.post('/deleteMessage')
-# async def delete_message(request: Request, message: str = Form("message"), name: str = Form("name") ):
+async def delete_message(request: Request, message: str = Form("message"), name: str = Form("name") ):
 # async def delete_message(request: Request, item: Item ):
-def delete_message(request: Request, message = Body("message"), name = Body("name") ):
-    
+# def delete_message(request: Request, message = Body("message"), name = Body("name") ):    
     print(message)
     print(name)
     # print(item.message)
@@ -211,6 +210,7 @@ def delete_message(request: Request, message = Body("message"), name = Body("nam
     # deletion happens only when cookie_name equals to the name passed from front-end
     if(cookie_name != name):
         print("someone is doing bad thing...not okay")
+        print("redirect to member page")
     else:
         mydb = mysql.connector.connect(
             host='localhost',

@@ -13,7 +13,7 @@
         </p>
     </div>
     <div id="login">
-        <p>{{ status }}</p>   
+        <p>{{ username }}，歡迎登入系統</p>   
         <a href="/signout">登出系統</a>
     </div>
     <hr>
@@ -33,13 +33,14 @@
     <hr>
     <div id="message_block">
         {% for item in messages %}
-        <p><b>{{item.name}}</b>：{{item.message}} <button class="delete_btn" name="deletion" value="{{item.message}}" style="display:{{item.delete}};" onclick='deleteHandler("{{item.name}}","{{item.message}}")'>x</button></p>
-        <!-- <p><b>{{item.name}}</b>：{{item.message}} <button id={{item.row}} class="delete_btn" name="deletion" value={{item.message}} style="display:{{item.delete}};" onclick="deleteHandler({{item.message}},{{item.name}})">x</button></p> -->
-            <!-- <form action="/deleteMessage" method="post">
-                <input class="name" name="name" value= "{{ item.name }}" readonly>：
-                <input class="message" name="message" value= "{{ item.message }}" readonly>
-                <button style='display:{{item.delete}};' type="submit" class="delete_btn" onclick="deleteHandler()">x</button>
-            </form> -->
+            <form action="/deleteMessage" method="post">
+                <b>{{item.name}}</b>：{{item.message}} 
+                {% if username == item.name %}
+                <input type="hidden" name="name" value="{{item.name}}"/>
+                <input type="hidden" name="message" value="{{item.message}}"/>
+                <button type="submit" class="delete_btn" onclick="deleteHandler()">x</button>
+                {% endif %}
+            </form>
         {% endfor %}
     </div>
     
@@ -55,34 +56,10 @@
         }
         console.log(comment);
     }
-    function deleteHandler(name,msg){
-    // function deleteHandler(){
-        // console.log(name);
-        // console.log(msg);
-
+    function deleteHandler(){
         if(!confirm("確定要刪除嗎?")){
             event.preventDefault();
             return;
-        }
-        else{
-            fetch("/deleteMessage",{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({'name':name,'message':msg})
-            })
-            .then(resp => resp.json()) // or, resp.text(), etc
-            .then(data => {
-                console.log(data); // handle response data
-            })
-            .catch(error => {
-                console.error(error);
-            });
-            
-            location.href = "/member";
-
-            
         }
     }
 </script>

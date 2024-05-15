@@ -91,28 +91,5 @@
         }
 
     }
-    function cal_square(){
-        
-        const input = document.getElementById("int_input").value;
-        console.log(input);
-
-        int_num = Number(input);
-        // console.log(Number.isInteger(Number(input)));
-        
-        if( int_num < 0 || !Number.isInteger(int_num)){
-            alert("請輸入一個正整數");
-            event.preventDefault();
-            return;
-        }
-        if(!int_num){
-            alert("欄位不可為空");
-            event.preventDefault();
-            return;
-        }
-
-        // 檢查沒問題後才轉址
-        location.href = "/square/" + int_num.toString();
-        // # toString()處理 12.0問題
-    }
 </script>
 </html>
