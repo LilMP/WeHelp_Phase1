@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>week7</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/week7.css') }}">
+</head>
+<body>
+    <div id="title">
+        <p>
+            {{ title }}
+        </p>
+    </div>
+    <div id="login">
+        <p id="username">{{ username }}，歡迎登入系統</p>
+        <a href="/signout">登出系統</a>
+    </div>
+    <hr>
+    <div id="query_member_block">
+        <p>查詢會員姓名</p>
+        <!-- <form action="/api/member" method="get"> -->
+        <div>
+            <!-- input 的 name 要跟 後端 fastapi 接收的變數名稱一樣 才能把值傳到後端 -->
+            <input type="text" id="query" placeholder="" name="username">
+            <button type="submit" onclick="queryHandler()">查詢</button>
+        </div>
+        <div id="query_result"></div>
+
+        <p>更新我的姓名</p>
+        <!-- <form action="/api/member" method="get"> -->
+        <div>
+            <!-- input 的 name 要跟 後端 fastapi 接收的變數名稱一樣 才能把值傳到後端 -->
+            <input type="text" id="update" placeholder="" name="new_username">
+            <button type="submit" onclick="updateHandler()">更新</button>
+        </div>
+        <div id="update_result"></div>
+            
+
+        <!-- </form> -->
+        
+    </div>
+    <hr>
+
+    <div id="comment_block">
+        <p>快來留言吧</p>   
+        <form action="/createMessage" method="post">
+            <div>
+                <!-- label 的 for 跟 input的 name 要互相對應 才能把值傳到後端 -->
+                <label for="comment">內容</label>
+                <input type="text" id="comment" placeholder="" name="comment">
+            </div>
+            <div>
+                <button type="submit" name="submit_message" onclick="commentHandler()">送出</button>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <div id="message_block">
+        {% for item in messages %}
+            <form action="/deleteMessage" method="post">
+                <b>{{item.name}}</b>：{{item.message}} 
+                {% if username == item.name %}
+                <input type="hidden" name="name" value="{{item.name}}"/>
+                <input type="hidden" name="message" value="{{item.message}}"/>
+                <button type="submit" class="delete_btn" onclick="deleteHandler()">x</button>
+                {% endif %}
+            </form>
+        {% endfor %}
+    </div>
+    
+</body>
+<script>
+    function commentHandler(){
+        const comment = document.getElementById("comment").value;
+        
+        if(!comment){
+            alert("留言不可為空");
+            event.preventDefault();
+            return;
+        }
+        console.log(comment);
+    }
+    function queryHandler(){
+        // console.log("btn_clicked");
+        // console.log(document.getElementById('query').value);
+        let username = document.getElementById('query').value;
+        fetch("/api/member?username="+username,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                // data: JSON.stringify({'username':username})
+            })
+            .then(resp => resp.json()) // or, resp.text(), etc
+            .then(data => {
+                console.log(data); // handle response data
+                let query_result = data['data']
+                
+                if(query_result==="Null"){
+                    document.getElementById("query_result").innerHTML = "No Data";
+                }
+                else{
+                    document.getElementById("query_result").innerHTML = query_result['name']+"("+query_result['username']+")";
+                }
+                
+
+
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            // location.href = "/member";
+    }
+    function updateHandler(){
+        // console.log("btn_clicked");
+        // console.log(document.getElementById('query').value);
+        let new_username = document.getElementById('update').value;
+        fetch("/api/member",{
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'name':new_username})
+            })
+            .then(resp => resp.json()) // or, resp.text(), etc
+            .then(data => {
+                console.log(data); // handle response data
+                
+                if(data.ok){
+                    document.getElementById('username').textContent=new_username+"，歡迎登入系統";
+                    document.getElementById('update_result').textContent="更新成功";
+                }
+                if(data.error){
+                    document.getElementById('update_result').textContent="更新失敗";
+                }
+                
+
+
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            // location.href = "/member";
+    }
+    function deleteHandler(name,msg){
+        if(!confirm("確定要刪除嗎?")){
+            event.preventDefault();
+            return;
+        }
+    }
+</script>
+</html>
