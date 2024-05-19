@@ -47,10 +47,7 @@
         <form action="/createMessage" method="post">
             <div>
                 <!-- label 的 for 跟 input的 name 要互相對應 才能把值傳到後端 -->
-                <label for="comment">內容</label>
                 <input type="text" id="comment" placeholder="" name="comment">
-            </div>
-            <div>
                 <button type="submit" name="submit_message" onclick="commentHandler()">送出</button>
             </div>
         </form>
@@ -73,7 +70,7 @@
 <script>
     function commentHandler(){
         const comment = document.getElementById("comment").value;
-        
+
         if(!comment){
             alert("留言不可為空");
             event.preventDefault();
@@ -97,8 +94,11 @@
                 console.log(data); // handle response data
                 let query_result = data['data']
                 
-                if(query_result==="Null"){
+                if(query_result===null){
                     document.getElementById("query_result").innerHTML = "No Data";
+                }
+                else if(query_result==="error"){
+                    document.getElementById("query_result").innerHTML = "查詢會員姓名失敗";
                 }
                 else{
                     document.getElementById("query_result").innerHTML = query_result['name']+"("+query_result['username']+")";

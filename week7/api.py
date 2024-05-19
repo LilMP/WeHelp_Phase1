@@ -68,6 +68,7 @@ def get_signout(request: Request):
     request.session.update({"MEMBER-ID":None})
     request.session.update({"USERNAME":None})
     request.session.update({"NAME":None})
+    
 
     return RedirectResponse('/')  
 
@@ -80,9 +81,10 @@ def get_error(request: Request, message):
 @app.get('/member')
 def get_member(request: Request):
     name = request.session.get('NAME')
-
+    
     # check session SIGNED-IN
     if request.session.get("SIGNED-IN") is True:
+        
         # fetch all messages from database
         mydb = mysql.connector.connect(
             host='localhost',
@@ -142,6 +144,7 @@ async def verification(request: Request, account: str = Form("account"), passwor
         request.session.update({"MEMBER-ID": db_id})
         request.session.update({"USERNAME": db_account})
         request.session.update({"NAME": db_name})
+        
 
         return RedirectResponse('/member', status_code=303)  
         # update cookie 的寫法
@@ -158,26 +161,31 @@ async def verification(request: Request, account: str = Form("account"), passwor
 
 @app.post('/createMessage')
 async def create_message(request: Request, comment: str = Form("comment")):
-    id = request.session.get('MEMBER-ID')
-    # username = request.session.get('USERNAME')
-    # fetch all messages from database
-    mydb = mysql.connector.connect(
-        host='localhost',
-        user='wehelp',
-        password='test123',
-        database='website'
-    )
+
+    # check if logged-in
+    if request.session.get("SIGNED-IN") is True:
+        id = request.session.get('MEMBER-ID')
+        # username = request.session.get('USERNAME')
+        # fetch all messages from database
+        mydb = mysql.connector.connect(
+            host='localhost',
+            user='wehelp',
+            password='test123',
+            database='website'
+        )
+        
+        mycursor = mydb.cursor()
+        sql = "INSERT INTO message (member_id, content) VALUES (%s, %s);"
+        val = (id, comment)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        print(mycursor.rowcount, "message inserted.")
+        
+        # msg = mycursor.fetchall()  
+        return RedirectResponse('/member',status_code=303)  
+    else:
+        return RedirectResponse('/',status_code=303)  
     
-    mycursor = mydb.cursor()
-    sql = "INSERT INTO message (member_id, content) VALUES (%s, %s);"
-    val = (id, comment)
-    mycursor.execute(sql, val)
-    mydb.commit()
-    print(mycursor.rowcount, "message inserted.")
-    # msg = mycursor.fetchall()  
-
-
-    return RedirectResponse('/member', status_code=303)  
 
 # class Item(BaseModel):
 #     name: str
@@ -229,13 +237,16 @@ async def query_member(request: Request, username: str):
 
         msg = cursor.fetchone() 
         if msg is None:
-            return {"data":"Null"}
+            return {"data":None}
         else:
             # result = User(msg[0],msg[1],msg[2])
             result = User( *[i for i in msg] )
             return {"data":result}
+    else:
+        print("user not logged-in, return error")
+        return {"data":"error"}
 
-@app.patch('/api/member/{username}')
+@app.patch('/api/member')
 async def update_member(request: Request, response_body = Body("name")):
     
     # content_type = request.headers.get('Content-Type')
@@ -261,8 +272,11 @@ async def update_member(request: Request, response_body = Body("name")):
         request.session.update({"NAME":response_body["name"]})
         print("name in cache updated.")
 
+        
+
         return {"ok":True}
     else:
+        print("user not logged-in, return error")
         return {"error": True}
 
 
